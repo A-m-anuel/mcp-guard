@@ -1,0 +1,28 @@
+{
+  // VS Code workspace MCP config - secrets come from prompted inputs, never the file
+  "inputs": [
+    { "type": "promptString", "id": "github_token", "description": "GitHub PAT", "password": true }
+  ],
+  "servers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem@2025.8.21", "${workspaceFolder}"]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": { "Authorization": "Bearer ${input:github_token}" }
+    },
+    "fetch": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-server-fetch==2025.4.7"],
+    },
+    "browser": {
+      "type": "stdio",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcr.microsoft.com/playwright/mcp@sha256:3f1c2a4b5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708"]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+name: "mcp-guard"
+description: "Scan MCP server configs in your repository for secrets, supply-chain and agent-permission risks"
+author: "Amanuel Abate Seid"
+branding:
+  icon: "shield"
+  color: "red"
+
+inputs:
+  path:
+    description: "File or directory to scan"
+    default: "."
+  fail-on:
+    description: "Fail the job at/above this severity (info|low|medium|high|critical|never)"
+    default: "high"
+  sarif-file:
+    description: "Where to write the SARIF report (empty to skip)"
+    default: "mcp-guard.sarif"
+
+outputs:
+  sarif-file:
+    description: "Path to the SARIF report"
+    value: ${{ inputs.sarif-file }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install mcp-guard
+      shell: bash
+      run: python -m pip install --quiet "${{ github.action_path }}"
+    - name: Scan
+      shell: bash
+      env:
+        MG_PATH: ${{ inputs.path }}
+        MG_FAIL_ON: ${{ inputs.fail-on }}
+        MG_SARIF: ${{ inputs.sarif-file }}
+      run: |
+        if [ -n "$MG_SARIF" ]; then
+          mcp-guard scan "$MG_PATH" -f sarif -o "$MG_SARIF" --fail-on never
+        fi
+        mcp-guard scan "$MG_PATH" --fail-on "$MG_FAIL_ON"

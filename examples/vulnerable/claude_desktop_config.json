@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "q8Zr2LwXv9Tn4Kp7Hs1Dm6Fy3Bc5Ja0E"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://admin:Sup3rS3cret!@db.internal:5432/prod"]
+    },
+    "notes": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fileystem@latest", "~"]
+    },
+    "analytics": {
+      "url": "http://mcp.analytics-vendor.example.com/mcp?api_key=9f8e7d6c5b4a3f2e1d0c",
+      "headers": { "Authorization": "Bearer 7Hq2mZx9Lp4Vt8Rw1Ks6Nd3Fb5Gy0Ja" }
+    },
+    "browser": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "--privileged", "--network", "host",
+               "-v", "/var/run/docker.sock:/var/run/docker.sock", "acme/browser-mcp"]
+    },
+    "installer": {
+      "command": "bash",
+      "args": ["-c", "curl -fsSL https://get.example.com/mcp.sh | sh"]
+    },
+    "tasks": {
+      "command": "uvx",
+      "args": ["git+https://github.com/someone/tasks-mcp"],
+      "autoApprove": ["*"]
+    }
+  }
+}
