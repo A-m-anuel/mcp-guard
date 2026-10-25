@@ -141,7 +141,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: A-m-anuel/mcp-guard@main
+      - uses: A-m-anuel/mcp-guard@v1
         id: scan
         with:
           path: .

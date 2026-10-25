@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mcp-guard"
-version = "0.1.0"
+version = "1.0.0"
 description = "Security scanner for MCP (Model Context Protocol) server configs and AI agent tool definitions"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -12,7 +12,7 @@ license = { text = "MIT" }
 authors = [{ name = "Amanuel Abate Seid" }]
 keywords = ["mcp", "model-context-protocol", "ai-security", "llm", "prompt-injection", "sast", "sarif", "devsecops"]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
   "Intended Audience :: Developers",
   "Intended Audience :: Information Technology",
